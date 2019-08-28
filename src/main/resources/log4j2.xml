@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration strict="true">
+  <properties>
+    <property name="patternlayout">%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</property>
+    <property name="filename">C:/var/logs/demo.log</property>
+    <property name="filenamePattern">C:/var/logs/demo-%d{yyyy-dd-MM}-%i.log.gz</property>
+  </properties>
+  <appenders>
+    <appender name="Console" type="Console" target="SYSTEM_OUT">
+      <layout type="PatternLayout" pattern="${patternlayout}"/>
+    </appender>
+     <appender name="File" type="RollingFile" fileName="${filename}" filePattern="${filenamePattern}" append="true">
+       <layout type="PatternLayout" pattern="${patternlayout}"/>
+       <Policies>
+         <OnStartupTriggeringPolicy/>
+         <SizeBasedTriggeringPolicy size="100 KB"/>
+       </Policies>
+       <DefaultRolloverStrategy max="30"/>
+     </appender>
+  </appenders>
+  <loggers>
+    <logger name="com.example.demo" level="debug" additivity="false">
+      <appender-ref ref="Console"/>
+      <appender-ref ref="File"/>
+    </logger>
+    <root level="info">
+      <appender-ref ref="Console"/>
+    </root>
+  </loggers>
+</configuration>
